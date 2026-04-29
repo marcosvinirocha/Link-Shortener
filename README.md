@@ -1,151 +1,111 @@
 <div align="center">
 
-# 🧪 Teste Técnico — Desenvolvedor Full Stack
+# 🔗 Link Shortener
 
-![ASA Digital](https://img.shields.io/badge/ASA%20Digital-Teste%20T%C3%A9cnico-FF7700?style=flat-square&logo=gitlab&logoColor=white)
-![React](https://img.shields.io/badge/React-18%2B-61DAFB?style=flat-square&logo=react&logoColor=black)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)
 ![Node.js](https://img.shields.io/badge/Node.js-20%2B-339933?style=flat-square&logo=node.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Express](https://img.shields.io/badge/Express-5-000000?style=flat-square&logo=express&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=flat-square&logo=prisma&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?style=flat-square&logo=postgresql&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
 
-**Encurtador de Links — aplicação Full Stack estilo bit.ly**
+**Aplicação full stack de encurtamento de URLs com painel de estatísticas**
+
+Desenvolvido por **Marcos Vinicius Oliveira Rocha**
 
 </div>
 
 ---
 
-## 👋 Olá, Marcos Vinicius Oliveira Rocha!
+## 📖 Visão Geral
 
-Bem-vindo(a) ao teste técnico da ASA Digital para a vaga de **Desenvolvedor Full Stack (React + Node.js)**.
+Link Shortener é uma aplicação web inspirada em serviços como bit.ly, que permite criar links curtos personalizados e acompanhar estatísticas de acesso em tempo real.
 
-Não buscamos perfeição — buscamos código limpo, decisões justificadas e entrega funcional.
+**O problema:** URLs longas são difíceis de compartilhar, lembrar e analisar métricas de clique. Esta aplicação resolve isso gerando códigos únicos de 6 caracteres e registrando cada acesso com dados de IP e user agent.
 
----
-
-## 🚀 Acesso ao Repositório
-
-| Campo | Valor |
-|-------|-------|
-| 🌐 GitLab | https://git.asadigital.io |
-| 👤 Usuário | `marcos.rocha` |
-| 🔑 Senha | `whHzXSBsMtCk` |
-| 📁 Projeto | `https://git.asadigital.io/asa/digital/internal/interview/fullstack/marcos-vinicius-oliveira-rocha` |
-| ⏰ Expira em | 04/04/2026 |
-
-## 📥 Passo a Passo para Começar
-
-### 1. Clone o repositório
-
-```bash
-git clone https://git.asadigital.io/asa/digital/internal/interview/fullstack/marcos-vinicius-oliveira-rocha
-cd marcos-vinicius-oliveira-rocha
-```
-
-Quando pedir autenticação:
-- **Username:** `marcos.rocha`
-- **Password:** `whHzXSBsMtCk`
-
-### 2. Crie sua branch de desenvolvimento
-
-```bash
-git checkout -b feat/marcos-vinicius-oliveira-rocha
-```
-
-### 3. Desenvolva sua solução
-
-Coloque todo o código em **`tests/backend/ e tests/frontend/`**
-
-### 4. Envie seu código (commits e push)
-
-```bash
-# Adicionar arquivos
-git add .
-
-# Fazer commit (use mensagens descritivas)
-git commit -m "feat: implementar endpoints de livros"
-
-# Enviar para o GitLab
-git push origin feat/marcos-vinicius-oliveira-rocha
-```
-
-Repita o `git add → commit → push` quantas vezes quiser durante o desenvolvimento.
-
-### 5. Abra o Merge Request
-
-Quando terminar (ou quando o prazo estiver chegando):
-
-1. Acesse: `https://git.asadigital.io/asa/digital/internal/interview/fullstack/marcos-vinicius-oliveira-rocha`
-2. Clique em **"Create merge request"** na sua branch
-3. Preencha o template de entrega
-4. Clique em **"Submit merge request"**
-
-> ⚠️ **Importante:** Somente código enviado via Merge Request será avaliado. Não deixe para abrir o MR no último minuto — abra cedo, você pode continuar fazendo push depois.
----
-
-## 🎯 O Desafio
-
-Construir um **encurtador de links** com painel de estatísticas.
-
-**Por que esse desafio?** É simples de entender mas rico em decisões reais: autenticação, redirect HTTP com registro de clique, analytics por dia, paginação e consumo de API no front.
+**A solução:** Backend robusto com autenticação JWT e frontend responsivo com dashboard interativo para gestão e análise de links.
 
 ---
 
-## 📝 Requisitos Funcionais
+## ✨ Funcionalidades
 
-### Back-End (porta 3001)
+### Frontend
+- Autenticação com login e cadastro
+- Dashboard com lista de links criados
+- Formulário para criação de novos links
+- Visualização de estatísticas com gráfico de cliques por dia
+- Interface responsiva (mobile-first)
+- Feedback visual de sucesso/erro nas operações
 
-**Autenticação**
-- `POST /auth/register` — cadastro (nome, email, senha)
-- `POST /auth/login` — retorna JWT
-- Rotas de links exigem token no header `Authorization: Bearer {token}`
-
-**Links**
-- `POST   /links` — encurtar URL (gera código único de 6 chars, ex: `abc123`)
-- `GET    /links` — listar links do usuário autenticado (paginado)
-- `GET    /links/:id/stats` — total de cliques + cliques por dia (últimos 7 dias)
-- `DELETE /links/:id` — remover link
-
-**Redirect público (sem autenticação)**
-- `GET /:codigo` — redirecionar para a URL original (HTTP 302) e registrar o clique
-
-### Front-End (porta 5173 com Vite, ou 3000)
-
-- Tela de login e cadastro
-- Dashboard: lista de links com código, URL original e total de cliques
-- Formulário para criar novo link (com feedback de sucesso/erro)
-- Página ou modal com estatísticas do link (gráfico ou tabela de cliques por dia)
-- Responsivo (mobile-first)
+### Backend
+- Cadastro e autenticação de usuários com JWT
+- Encurtamento de URLs com geração de código único
+- Redirecionamento HTTP 302 com registro de clique
+- Estatísticas de acesso por link (últimos 7 dias)
+- Listagem paginada de links por usuário
+- Remoção de links
 
 ---
 
-## 🛠️ Stack Obrigatória
+## 🛠️ Stack Tecnológica
 
-**Back-End:**
-```
-Node.js 20+ com TypeScript
-Framework  : Express, Fastify ou NestJS
-ORM        : Prisma (preferencial) ou TypeORM
-Banco      : PostgreSQL 16 — sobe via docker-compose
-Auth       : JWT
-Validação  : Zod, Joi ou class-validator
-```
+**Backend:**
+| Tecnologia | Versão | Finalidade |
+|------------|--------|------------|
+| Node.js | 20+ | Runtime |
+| TypeScript | 5+ | Tipagem |
+| Express | 5 | Framework HTTP |
+| Prisma | 7 | ORM |
+| PostgreSQL | 16 | Banco de dados |
+| Redis | 7 | Cache |
+| Zod | 4 | Validação de dados |
+| JWT | 9 | Autenticação |
 
-**Front-End:**
-```
-React 18+ com TypeScript
-Bundler    : Vite
-HTTP       : Axios ou Fetch API
-```
+**Frontend:**
+| Tecnologia | Versão | Finalidade |
+|------------|--------|------------|
+| React | 19 | Biblioteca UI |
+| TypeScript | 5 | Tipagem |
+| Vite | 8 | Bundler |
+| TailwindCSS | 4 | Estilização |
+| React Router | 7 | Roteamento |
+| React Hook Form | 7 | Gerenciamento de formulários |
+| Zod | 4 | Validação de formulários |
+| Recharts | 3 | Gráficos |
+| Axios | 1 | Cliente HTTP |
 
-**Diferenciais (não obrigatórios):**
-- Cache Redis no redirect (já disponível no docker-compose)
-- Rate limiting nos endpoints públicos
-- Testes unitários no back-end
-- Gráfico de cliques com Recharts ou Chart.js
+**Infraestrutura:**
+- Docker Compose para PostgreSQL e Redis
+- Rate limiting com express-rate-limit
+- Helmet para segurança HTTP
+- ESLint + Prettier para linting e formatação
 
 ---
 
-## 🗃️ Modelo de Dados Sugerido
+## 🏗️ Arquitetura
 
+```
+┌─────────────┐       ┌──────────────┐       ┌──────────────┐
+│   Frontend  │ ──►   │   Backend    │ ──►   │  PostgreSQL  │
+│  React 19   │  HTTP │  Express 5   │       │    v16       │
+│  Vite + TS  │ ◄──   │  JWT + Zod   │       │   Prisma     │
+└─────────────┘       └──────────────┘       └──────────────┘
+                             │
+                             ▼
+                       ┌──────────────┐
+                       │    Redis     │
+                       │    v7        │
+                       └──────────────┘
+```
+
+**Camadas do Backend:**
+```
+Controller → Service → Repository → Database
+```
+
+**Modelo de Dados:**
 ```
 User   { id, name, email, password_hash, created_at }
 Link   { id, user_id, original_url, short_code, created_at }
@@ -154,96 +114,90 @@ Click  { id, link_id, ip_address, user_agent, clicked_at }
 
 ---
 
-## 📁 Estrutura Esperada
+## 📡 API Endpoints
 
-```
-tests/
-├── backend/
-│   ├── src/
-│   ├── prisma/         # ou migrations/ se usar TypeORM
-│   ├── package.json
-│   ├── tsconfig.json
-│   └── README.md       # suas instruções de execução
-└── frontend/
-    ├── src/
-    ├── package.json
-    ├── tsconfig.json
-    ├── vite.config.ts
-    └── README.md
-docker-compose.yml      # já na raiz — sobe PostgreSQL e Redis
-```
+| Método | Rota | Descrição | Auth |
+|--------|------|-----------|------|
+| POST | `/auth/register` | Cadastro de usuário | ❌ |
+| POST | `/auth/login` | Login e geração de JWT | ❌ |
+| POST | `/links` | Encurtar URL | ✅ |
+| GET | `/links` | Listar links (paginado) | ✅ |
+| GET | `/links/:id/stats` | Estatísticas do link | ✅ |
+| DELETE | `/links/:id` | Remover link | ✅ |
+| GET | `/:codigo` | Redirecionar para URL original | ❌ |
 
 ---
 
-## ▶️ Como Rodar
+## 📸 Screenshots
+
+> *(Em breve: screenshots do dashboard, formulário de criação e gráficos)*
+
+---
+
+## 🚀 Como Rodar
+
+### Pré-requisitos
+
+- Node.js 20+
+- Docker + Docker Compose
+- npm ou pnpm
+
+### Passo a passo
 
 ```bash
-# 1. Subir a infraestrutura (PostgreSQL + Redis)
+# 1. Clone o repositório
+git clone <url-do-repositorio>
+cd marcos-vinicius-oliveira-rocha
+
+# 2. Subir banco de dados e Redis
 docker-compose up -d
 
-# 2. Configurar e iniciar o back-end (porta 3001)
+# 3. Instalar dependências do backend
 cd tests/backend
 npm install
-# Criar tests/backend/.env com:
-# DATABASE_URL=postgresql://shortener:shortener123@localhost:5432/shortener
-# REDIS_URL=redis://localhost:6379
-# JWT_SECRET=dev-secret-local
-# PORT=3001
-# BASE_URL=http://localhost:3001
+npx prisma migrate dev
+npm run dev   # Porta 3001
 
-npx prisma migrate dev   # ou equivalente do seu ORM
-npm run dev
-
-# 3. Configurar e iniciar o front-end (porta 5173 ou 3000)
+# 4. Instalar dependências do frontend (outro terminal)
 cd tests/frontend
 npm install
-# Criar tests/frontend/.env com:
-# VITE_API_URL=http://localhost:3001
+npm run dev   # Porta 5173
+```
 
-npm run dev
+### Variáveis de Ambiente
 
-# 4. Testar o redirect (em outra aba ou curl)
-curl -v http://localhost:3001/abc123
-# Deve retornar HTTP 302 Location: <url original>
+**Backend** (`tests/backend/.env`):
+```env
+DATABASE_URL=postgresql://shortener:shortener123@localhost:5432/shortener
+REDIS_URL=redis://localhost:6379
+JWT_SECRET=dev-secret-local
+PORT=3001
+BASE_URL=http://localhost:3001
+```
+
+**Frontend** (`tests/frontend/.env`):
+```env
+VITE_API_URL=http://localhost:3001
 ```
 
 ---
 
-## ✅ Checklist de Entrega
+## ⭐ Diferenciais
 
-- [ ] Back-end rodando na porta 3001 com todos os endpoints
-- [ ] Redirect `GET /:codigo` retorna HTTP 302 e registra o clique
-- [ ] Front-end conectado ao back-end e exibindo os links
-- [ ] `docker-compose up -d` sobe PostgreSQL e Redis sem erros
-- [ ] README em `tests/backend/` e `tests/frontend/` com instruções
-- [ ] Merge Request aberto para `main`
-- [ ] Commits organizados (conventional commits)
-
----
-
-## ⏱️ Prazo
-
-**Máximo:** 48 horas — seu acesso expira em **04/04/2026**
-
-📧 suporte@asadigital.io se precisar de mais tempo (avise antes).
-
----
-
-## ✅ O Que Valorizamos
-
-- TypeScript bem usado (sem `any` em excesso)
-- Separação clara de responsabilidades (controller → service → repository)
-- Tratamento de erros adequado (não deixar exceções sem tratamento)
-- README honesto — se não terminou algo, escreva o que implementaria
+- **Rate limiting** nos endpoints públicos para proteção contra abuso
+- **Cache com Redis** para otimização de redirecionamentos
+- **Segurança HTTP** com Helmet
+- **Validação robusta** com Zod em todos os níveis
+- **Código tipado** com TypeScript em toda a aplicação
+- **Separação de responsabilidades** (Controller → Service → Repository)
+- **Gráficos interativos** com Recharts para visualização de estatísticas
 
 ---
 
 <div align="center">
 
-**Boa sorte, Marcos Vinicius Oliveira Rocha! 🚀**
+**Marcos Vinicius Oliveira Rocha**
 
-ASA Digital · suporte@asadigital.io · asadigital.io
-
-*2026 | Vaga: Desenvolvedor Full Stack (React + Node.js)*
+Desenvolvedor Full Stack · React + Node.js + TypeScript
 
 </div>
