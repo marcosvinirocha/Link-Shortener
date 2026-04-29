@@ -1,0 +1,34 @@
+version: "3.8"
+
+# Este docker-compose sobe apenas a infraestrutura (banco + redis).
+# O backend e frontend rodam localmente durante o desenvolvimento.
+# Para subir tudo via Docker, crie um Dockerfile em tests/backend/ e tests/frontend/
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: shortener_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-shortener}
+      POSTGRES_USER: ${POSTGRES_USER:-shortener}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-shortener123}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-shortener}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: shortener_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
+volumes:
+  pg_data:

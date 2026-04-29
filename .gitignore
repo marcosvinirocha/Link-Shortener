@@ -1,0 +1,12 @@
+.env
+**/.env
+node_modules/
+dist/
+build/
+.next/
+.nuxt/
+coverage/
+*.log
+.DS_Store
+.vscode/
+.idea/

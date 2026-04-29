@@ -1,0 +1,127 @@
+@BASE_URL = http://localhost:3001
+
+### Health Check
+GET {{BASE_URL}}/api/health
+
+###
+
+### Register - Create a new user
+POST {{BASE_URL}}/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "John Doe2",
+  "email": "john.doe2@example.com",
+  "password": "password123"
+}
+
+###
+
+### Login - Success
+POST {{BASE_URL}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+
+###
+
+### Profile - Get user profile
+GET {{BASE_URL}}/api/auth/profile
+Authorization: Bearer YOUR_TOKEN_HERE
+
+### ============================================
+### LINKS ENDPOINTS (Requires Authentication)
+### ============================================
+
+###
+
+### Create Link - Encurtar URL
+POST {{BASE_URL}}/api/links
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtbmdreG9wbzAwMDBvd2lqbjE0cWVqbTAiLCJlbWFpbCI6ImpvaG4uZG9lQGV4YW1wbGUuY29tIiwiaWF0IjoxNzc1MTQzOTIxLCJleHAiOjE3NzU3NDg3MjF9.V4Tqg0eVpx5Zj5oqjfclZM4mBONKy_hiJ3rOc6i1U-M
+
+{
+  "url": "https://github.com.br"
+}
+
+###
+
+### Create Link - Invalid URL (should fail with 400)
+POST {{BASE_URL}}/api/links
+Content-Type: application/json
+Authorization: Bearer YOUR_TOKEN_HERE
+
+{
+  "url": "not-a-valid-url"
+}
+
+###
+
+### Create Link - Without auth (should fail with 401)
+POST {{BASE_URL}}/api/links
+Content-Type: application/json
+
+{
+  "url": "https://example.com"
+}
+
+###
+
+### List Links - Default pagination
+GET {{BASE_URL}}/api/links
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtbmdreG9wbzAwMDBvd2lqbjE0cWVqbTAiLCJlbWFpbCI6ImpvaG4uZG9lQGV4YW1wbGUuY29tIiwiaWF0IjoxNzc1MTQzOTIxLCJleHAiOjE3NzU3NDg3MjF9.V4Tqg0eVpx5Zj5oqjfclZM4mBONKy_hiJ3rOc6i1U-M
+
+###
+
+### List Links - Custom pagination
+GET {{BASE_URL}}/api/links?page=1&limit=5
+Authorization: Bearer YOUR_TOKEN_HERE
+
+###
+
+### Get Link Stats - Replace SHORT_CODE with actual short code
+GET {{BASE_URL}}/api/links/4Me1LE/stats
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtbmdreG9wbzAwMDBvd2lqbjE0cWVqbTAiLCJlbWFpbCI6ImpvaG4uZG9lQGV4YW1wbGUuY29tIiwiaWF0IjoxNzc1MDk1NzMxLCJleHAiOjE3NzU3MDA1MzF9.7QrHjVkZCy5opNUQEapEKR-3O3vQqvr1zDMNi5GDa-s
+
+###
+
+### Get Link Stats - Non-existent link (should fail with 404)
+GET {{BASE_URL}}/api/links/non-existent/stats
+Authorization: Bearer YOUR_TOKEN_HERE
+
+###
+
+### Delete Link - Replace LINK_ID with actual link ID
+DELETE {{BASE_URL}}/api/links/LINK_ID
+Authorization: Bearer YOUR_TOKEN_HERE
+
+###
+
+### Delete Link - Non-existent link (should fail with 404)
+DELETE {{BASE_URL}}/api/links/non-existent-id
+Authorization: Bearer YOUR_TOKEN_HERE
+
+### ============================================
+### REDIRECT ENDPOINT (Public - No Auth Required)
+### ============================================
+
+###
+
+### Redirect - Short URL redirect (replace SHORT_CODE with actual code)
+### This will redirect to the original URL with HTTP 302
+### and register the click with IP and User-Agent
+GET {{BASE_URL}}/4Me1LE
+
+###
+
+### Redirect - Non-existent short code (should fail with 404)
+GET {{BASE_URL}}/invalidcode
+
+###
+
+### Redirect - With custom User-Agent header
+GET {{BASE_URL}}/4Me1LE
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
